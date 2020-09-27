@@ -1,6 +1,6 @@
 // variables to monitor quiz progression
 var currentQuestionsIndex = 0;
-var totalAllowedTime = questions.lenght * 20;
+var totalRemainingTime = questions.length * 20;
 var timerId;
 
 
@@ -11,6 +11,8 @@ var responsesEl = document.getElementById("responses");
 var startBtnEl = document.getElementById("start");
 var submitBtnEl = document.getElementById("submit");
 var feedbackEl = document.getElementById("feedback");
+var intialsEl = document.getElementById("initials");
+var endScreenEl = document.getElementById("end-screen");
 
 function startQuiz() {
     // hide start screen to make way for questions to be displayed
@@ -21,10 +23,10 @@ function startQuiz() {
     questionsEl.removeAttribute("class", "hide");
 
     // display totalAllowedTime
-    countDownEl.textContent = totalAllowedTime;
+    countDownEl.textContent = totalRemainingTime;
 
     // start timer
-    timerId = setInterval(countDownDecrement, 1000);
+    timerId = setInterval(countDownDecrementer, 1000);
 
     // display question
     getQuestion();
@@ -41,7 +43,7 @@ function getQuestion() {
     responsesEl.innerHTML = "";
 
     // find responses related to currentQuestion
-    currentQuestion.responses.forEach(function(repsonse, i) {
+    currentQuestion.responses.forEach(function (repsonse, i) {
         // create button for each option
         var responseBtn = document.createElement("button");
         responseBtn.setAttribute("class", "repsonses");
@@ -56,3 +58,103 @@ function getQuestion() {
         responsesEl.appendChild(responseBtn);
     });
 };
+
+
+function responseClicked() {
+    // check if user response does not match correctAnswer for currentQuestion
+    if (this.value !== responses[currentQuestionsIndex].answer) {
+        // apply penalty by decrementing totalRemainingTime
+        totalRemainingTime -= 5;
+
+        if (totalRemainingTime < 0) {
+            totalRemainingTime = 0;
+        }
+        // update countdownEl to display new totalRemainingTime
+        countDownEl.textContent = totalRemainingTime;
+
+        // set feedbackEl textContent to 'That's Incorrect!'
+        feedbackEl.textContent = "That's Incorrect!";
+    }
+    else {
+        // set feedbackEl textContent to 'That's CORRECT'
+        feedbackEl.textContent = "That's CORRECT!";
+    }
+    // display feedback on page for half a second
+    feedbackEl.setAttribute("class", "feedback");
+    setTimeout(function () {
+        feedbackEl.setAttribute("class", "feedback hide");
+    }, 500);
+
+    // increment index to find next question and its possible responses
+    currentQuestionsIndex++;
+
+    // evaluate whether that WAS the last question and if not get next question
+    if (currentQuestionsIndex <= questions.lenght) {
+        endQuiz();
+    }
+    else {
+        getQuestion();
+    }
+}
+
+
+function endQuiz() {
+    // stop countdown
+    clearInterval(timerId);
+
+    // show end-screen
+    endScreenEl.removeAttribute("class");
+
+    // show user's score
+    var yourScoreEl = document.getElementById("your-score");
+    yourScoreEl.textContent = totalRemainingTime;
+
+    // hide questions seciton
+    questionsEl.setAttribute("class", "hide");
+};
+
+
+function countDownDecrementer() {
+    // default decrease to countdown by 1
+    totalRemainingTime--;
+    countDownEl.textContent = totalRemainingTime;
+
+    // evaluate if user ran out of time
+    if (totalRemainingTime <= 0) {
+        endQuiz();
+    }
+}
+
+
+function storeUserScore() {
+    // get value of initials input without whitespace
+    var initials = intialsEl.value.trim();
+
+    // ensure initials returned is not null / empty
+    if (initials !== "") {
+        var newScore = {
+            score: totalRemainingTime,
+            initials: initials
+        };
+    }
+    // check for previous scores in localStorage
+    if (!localStorage.getItem("scores")) {
+        var scores = [];
+    }
+    else {
+        var scores = JSON.parse(localStorage.getItem("scores"));
+    }
+    // save scores to localStorage
+    scores.push(newScore);
+    localStorage.setItem("scores", JSON.stringify(scores));
+
+    // redirect user to scores.html
+    location.href = "scores.html";
+}
+
+
+// listen for way submit on endScreenEl
+endScreenEl.addEventListener("submit", storeUserScore);
+
+// listen for click event on the start button to start the quiz
+startBtnEl.addEventListener("click", startQuiz);
