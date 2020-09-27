@@ -35,9 +35,9 @@ function startQuiz() {
 function getQuestion() {
     var currentQuestion = questions[currentQuestionsIndex];
 
-    // display current question by updating 'question-text' with data from currentQuestionIndex
-    var questionTextEl = document.getElementById("question-text");
-    questionTextEl.textContent = currentQuestion.text;
+    // display current question by updating 'question' with data from currentQuestionIndex
+    var questionEl = document.getElementById("question");
+    questionEl.textContent = currentQuestion.text;
 
     // remove previously displayed responses
     responsesEl.innerHTML = "";
