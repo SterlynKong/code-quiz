@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie-edge" />
+        <title>Code Quiz</title>
+
+        <link rel="stylesheet" href="./assets/css/style.css" />
+    </head>
+
+    <body>
+        <div class="scores">
+            <a href="scores.html">Show High-Scores</a>
+        </div>
+
+        <div class="countdown">Time: <span id ="countdown">0</span></div>
+
+        <div class="container">
+            <div id="start-screen" class="start">
+                <h1>Code Quiz</h1>
+                <p>
+                    Instructions:<br>
+                    Answer the following multiple choice questions before the time runs out.<br>
+                    Incorrect answers will remove 5 seconds from the reamining time!
+                </p>
+                <button id=start>Let's Go!</button>
+            </div>
+
+            <section id="questions" class="hide">
+                <h2 id="question-text"></h2>
+                <div id="options" class="options"></div>
+            </section>
+
+            <div id="end-screen" class="hide">
+                <h2>Quiz completed!</h2>
+                <p>Your final score is <span id="final-score"></span>.</p>
+                <p>
+                    Please enter your initials: <input type="text" id="initials" max="4" />
+                    <button id="submit">Submit Score</button>
+                </p>
+            </div>
+
+            <div id="feedback" class="feedback hide"></div>
+        </div>
+
+        <script src="./assets/js/questions.js"></script>
+        <script src="./assets/js/logic.js"></script>
+    </body>
+</html>
