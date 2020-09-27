@@ -18,12 +18,12 @@ var questions = [
     {
         question: "Where is the correct place to insert a JavaScript?",
         responses: ["The <body> section", "The <head> section", "Both the <head> section and the <body> section are correct."],
-        answer: ""
+        answer: "Both the <head> section and the <body> section are correct."
     },
     {
         question: "What is the correct syntax for referring to an external script called 'xxx.js'?",
         responses: ['<script href="yyy.js">', '<script name="yyy.js">', '<script src="yyy.js">', 'href= src.yyy.js'],
-        answer: ""
+        answer: '<script src="yyy.js">'
     },
     {
         question: "An external script file must contain the <script> tag",
@@ -33,17 +33,17 @@ var questions = [
     {
         question: 'How do you write "Hello World" in an alert box?',
         responses: ['alert("Hello World!")', 'alertBox("Hello Word=ld!"), msg("Hello World!"), msgBox("Hello World!")'],
-        answer: ""
+        answer: 'alert("Hello World!")'
     },
     {
         question: "How do you create a function in JavaScript?",
         responses: ["function:myFunction()", "function = myFunction()", "function myFunction()", "Funk-shun is myFunk-shun()"],
-        answer: ""
+        answer: "function myFunction()"
     },
     {
         question: 'How do you call a function named "myFunction"?',
         responses: ["call myFunction()", "myFunction()", "call function myFunction()"],
-        answer: ""
+        answer: "myFunction()"
     },
     {
         question: "How to write an IF statement in JavaScript?",
@@ -53,7 +53,7 @@ var questions = [
     {
         question: 'How to write an IF statement for executing some code if "i" is NOT equal to 5?',
         responses: ['if ("i<>5")', 'if i<>5', 'if (i !=5)', 'if i=! 5 then'],
-        answer: ""
+        answer: "if (i !=5)"
     },
     {
         question: "How can you add a comment in a JavaScript?",
