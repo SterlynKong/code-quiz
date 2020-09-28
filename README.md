@@ -16,4 +16,4 @@
 
 Application URL: 
 
-Application Image: 
+Application Image: ![Code Quiz Screenshot](assets/images/code_quiz.png "Code Quiz Screenshot")
