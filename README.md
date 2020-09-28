@@ -14,6 +14,6 @@
 9. Player is given the opportunity to save their score
 10. There are options to view and to clear previous scores
 
-Application URL: 
+Application URL: https://sterlynkong.github.io/code-quiz/
 
 Application Image: ![Code Quiz Screenshot](assets/images/code_quiz.png "Code Quiz Screenshot")
