@@ -32,7 +32,7 @@ var questions = [
     },
     {
         question: 'How do you write "Hello World" in an alert box?',
-        responses: ['alert("Hello World!")', 'alertBox("Hello Word=ld!"), msg("Hello World!"), msgBox("Hello World!")'],
+        responses: ['alert("Hello World!")', 'alertBox("Hello Word=ld!")', 'msg("Hello World!")', 'msgBox("Hello World!")'],
         answer: 'alert("Hello World!")'
     },
     {

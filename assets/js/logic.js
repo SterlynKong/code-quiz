@@ -1,6 +1,6 @@
 // variables to monitor quiz progression
-var currentQuestionsIndex = 0;
-var totalRemainingTime = questions.length * 20;
+var currentQuestionIndex = 0;
+var totalRemainingTime = questions.length * 15;
 var timerId;
 
 
@@ -11,7 +11,7 @@ var responsesEl = document.getElementById("responses");
 var startBtnEl = document.getElementById("start");
 var submitBtnEl = document.getElementById("submit");
 var feedbackEl = document.getElementById("feedback");
-var intialsEl = document.getElementById("initials");
+var initialsEl = document.getElementById("initials");
 var endScreenEl = document.getElementById("end-screen");
 
 function startQuiz() {
@@ -33,26 +33,26 @@ function startQuiz() {
 };
 
 function getQuestion() {
-    var currentQuestion = questions[currentQuestionsIndex];
+    var currentQuestion = questions[currentQuestionIndex];
 
     // display current question by updating 'question' with data from currentQuestionIndex
     var questionEl = document.getElementById("question");
-    questionEl.textContent = currentQuestion.text;
+    questionEl.textContent = currentQuestion.question;
 
     // remove previously displayed responses
     responsesEl.innerHTML = "";
 
     // find responses related to currentQuestion
-    currentQuestion.responses.forEach(function (repsonse, i) {
+    currentQuestion.responses.forEach(function (response, i) {
         // create button for each option
         var responseBtn = document.createElement("button");
         responseBtn.setAttribute("class", "repsonses");
-        responseBtn.setAttribute("value", repsonse);
+        responseBtn.setAttribute("value", response);
 
         responseBtn.textContent = i + 1 + ") " + response;
 
         // listen for 'click' event on each option and then designate as responseClicked
-        responsesBtn.onclick = responseClicked;
+        responseBtn.onclick = responseClicked;
 
         // display responses available for the currentQuestion
         responsesEl.appendChild(responseBtn);
@@ -62,9 +62,9 @@ function getQuestion() {
 
 function responseClicked() {
     // check if user response does not match correctAnswer for currentQuestion
-    if (this.value !== responses[currentQuestionsIndex].answer) {
+    if (this.value !== questions[currentQuestionIndex].answer) {
         // apply penalty by decrementing totalRemainingTime
-        totalRemainingTime -= 5;
+        totalRemainingTime -= 10;
 
         if (totalRemainingTime < 0) {
             totalRemainingTime = 0;
@@ -86,10 +86,10 @@ function responseClicked() {
     }, 500);
 
     // increment index to find next question and its possible responses
-    currentQuestionsIndex++;
+    currentQuestionIndex++;
 
     // evaluate whether that WAS the last question and if not get next question
-    if (currentQuestionsIndex <= questions.lenght) {
+    if (currentQuestionIndex === questions.length) {
         endQuiz();
     }
     else {
@@ -128,7 +128,7 @@ function countDownDecrementer() {
 
 function storeUserScore() {
     // get value of initials input without whitespace
-    var initials = intialsEl.value.trim();
+    var initials = initialsEl.value.trim();
 
     // ensure initials returned is not null / empty
     if (initials !== "") {
@@ -153,8 +153,8 @@ function storeUserScore() {
 }
 
 
-// listen for way submit on endScreenEl
-endScreenEl.addEventListener("submit", storeUserScore);
+// listen for click on submitBtnEl
+submitBtnEl.addEventListener("click", storeUserScore);
 
 // listen for click event on the start button to start the quiz
 startBtnEl.addEventListener("click", startQuiz);

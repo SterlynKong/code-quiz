@@ -1,4 +1,4 @@
-var clearBtnEl = document.querySelector("#scores");
+var clearBtnEl = document.getElementById("clear");
 
 function displayScores() {
     // check for previous scores in localStorage
